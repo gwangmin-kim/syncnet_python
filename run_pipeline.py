@@ -17,12 +17,14 @@ from scipy import signal
 
 from detectors import S3FD
 
+
 # ========== ========== ========== ==========
 # # PARSE ARGS
 # ========== ========== ========== ==========
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 parser = argparse.ArgumentParser(description = "FaceTracker");
-parser.add_argument('--data_dir',       type=str, default='data/work', help='Output direcotry');
+parser.add_argument('--data_dir',       type=str, default=os.path.join(SCRIPT_DIR, 'data/work'), help='Output direcotry');
 parser.add_argument('--videofile',      type=str, default='',   help='Input video file');
 parser.add_argument('--reference',      type=str, default='',   help='Video reference');
 parser.add_argument('--facedet_scale',  type=float, default=0.25, help='Scale factor for face detection');

@@ -2,16 +2,17 @@
 #-*- coding: utf-8 -*-
 
 import time, pdb, argparse, subprocess, pickle, os, gzip, glob
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 from SyncNetInstance import *
 
 # ==================== PARSE ARGUMENT ====================
 
 parser = argparse.ArgumentParser(description = "SyncNet");
-parser.add_argument('--initial_model', type=str, default="data/syncnet_v2.model", help='');
+parser.add_argument('--initial_model', type=str, default=os.path.join(SCRIPT_DIR, "data/syncnet_v2.model"), help='');
 parser.add_argument('--batch_size', type=int, default='20', help='');
 parser.add_argument('--vshift', type=int, default='15', help='');
-parser.add_argument('--data_dir', type=str, default='data/work', help='');
+parser.add_argument('--data_dir', type=str, default=os.path.join(SCRIPT_DIR, "data/work"), help='');
 parser.add_argument('--videofile', type=str, default='', help='');
 parser.add_argument('--reference', type=str, default='', help='');
 opt = parser.parse_args();

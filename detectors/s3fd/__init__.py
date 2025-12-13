@@ -6,7 +6,9 @@ from torchvision import transforms
 from .nets import S3FDNet
 from .box_utils import nms_
 
-PATH_WEIGHT = './detectors/s3fd/weights/sfd_face.pth'
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PATH_WEIGHT = os.path.join(SCRIPT_DIR, "weights", "sfd_face.pth")
 img_mean = np.array([104., 117., 123.])[:, np.newaxis, np.newaxis].astype('float32')
 
 
