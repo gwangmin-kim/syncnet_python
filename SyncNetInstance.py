@@ -144,6 +144,33 @@ class SyncNetInstance(torch.nn.Module):
         print(fconfm)
         print('AV offset: \t%d \nMin dist: \t%.3f\nConfidence: \t%.3f' % (offset,minval,conf))
 
+        try:
+            import json
+
+            out_dir = os.path.join(opt.work_dir, opt.reference)
+            os.makedirs(out_dir, exist_ok=True)
+
+            payload = {
+                "reference": opt.reference,
+                "videofile": videofile,
+                "clip": os.path.basename(videofile),
+                "av_offset": int(offset),
+                "min_dist": float(minval),
+                "confidence": float(conf),
+                "vshift": int(opt.vshift),
+                "batch_size": int(opt.batch_size),
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+
+            out_path = os.path.join(out_dir, "syncnet_summary.json")
+            with open(out_path, "w") as f:
+                json.dump(payload, f, indent=2)
+
+            print(f"[OK] Saved SyncNet JSON: {out_path}")
+
+        except Exception as e:
+            print("[WARN] Failed to write syncnet json:", e)
+
         dists_npy = numpy.array([ dist.numpy() for dist in dists ])
         return offset.numpy(), conf.numpy(), dists_npy
 
