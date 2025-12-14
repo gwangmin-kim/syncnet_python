@@ -1,31 +1,27 @@
 # SyncNet
 
-This repository contains the demo for the audio-to-video synchronisation network (SyncNet). This network can be used for audio-visual synchronisation tasks including: 
-1. Removing temporal lags between the audio and visual streams in a video;
-2. Determining who is speaking amongst multiple faces in a video. 
+Original repository: https://github.com/joonson/syncnet_python
 
-Please cite the paper below if you make use of the software. 
+## Changed from original
+일부 requirements 패키지 버전 수정
+numpy 버전에 안맞는 코드 수정
+전체 pipeline 통합한 쉘 스크립트 추가(visualize는 제외함)
+상대경로 코드 수정(eval.sh를 다른 위치에서 실행해도 경로 문제가 안생기도록)
+평가 수치를 json 형식으로 저장
 
 ## Dependencies
 ```
+apt install ffmpeg
 pip install -r requirements.txt
+sh download_model.sh
 ```
 
-In addition, `ffmpeg` is required.
 
-
-## Demo
-
-SyncNet demo:
+## Usage
+Using shell script:
 ```
-python demo_syncnet.py --videofile data/example.avi --tmp_dir /path/to/temp/directory
-```
-
-Check that this script returns:
-```
-AV offset:      3 
-Min dist:       5.353
-Confidence:     10.021
+./eval.sh <video_path> <output_dir>
+# json file will be saved at <output_dir>/pywork/evaluation_syncnet/syncnet_summary.json
 ```
 
 Full pipeline:
